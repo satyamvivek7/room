@@ -32,14 +32,15 @@ import { statusCode }  from '../utils/statusCode.js';
 
 export const login = async (req, res) => {
     try {
-        const { name, password } = req.body;
+        const { username, password } = req.body;
+        console.log('data', req.body);
+        let name = username;
 
         if (!(name && password)) {
             return res.status(statusCode.BAD_REQUEST.code).json({ message: 'Please send all required data' });
         }
 
-        console.log('data',req.body);
-
+    
         // Find user by name
         const users = await User.find({ name });
         console.log('users',users);
