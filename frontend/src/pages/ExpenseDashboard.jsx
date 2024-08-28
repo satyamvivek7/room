@@ -1,13 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/Dashboard/Dashboard.css";
 import ExpenseForm from "./ExpenseForm";
 
 export default function ExpenseDashboard() {
+  const [username, setUsername] = useState(null);
+
+  //get username from sessionStorage.
+  useEffect(() => {
+    const ActiveUser = sessionStorage.getItem("username");
+    console.log("username", ActiveUser);
+    setUsername(ActiveUser);
+  }, []);
+
   return (
     <>
       <div className="displayHeading">
         <h2>Expense Traker</h2>
-        <h1 className="user-name">Hi🖐 AKASH</h1>
+        <h1 className="user-name">Hi🖐 {username}</h1>
       </div>
 
       {/* button to create expense */}
