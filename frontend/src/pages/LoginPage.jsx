@@ -7,12 +7,16 @@ import "../styles/login/LoginPage.css";
 const LoginPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [error, setError] = useState(null);
   const [success, setSuccess] = useState("");
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
+
+    // Perform login logic here
+    console.log("username:", username);
+    console.log("Password:", password);
 
     try {
       const response = await loginUser(username, password);
@@ -20,7 +24,7 @@ const LoginPage = () => {
 
       if (response.message == "Logged in") {
         console.log("response.message", response.message);
-        navigate("/form");
+        // navigate("/form");
         setSuccess(response.message);
       } else {
         setError(response.message);
@@ -41,14 +45,32 @@ const LoginPage = () => {
           {/* <div className="divider">
             <span>or</span>
           </div> */}
-          <form>
+          <form onSubmit={handleLogin}>
             <div className="input-container">
               <i className="fas fa-envelope"></i>
-              <input type="email" placeholder="Email" required />
+              <input
+                type="text"
+                placeholder="Username"
+                value={username}
+                onChange={(e) => {
+                  setUsername(e.target.value);
+                  setError(null);
+                }}
+                required
+              />
             </div>
             <div className="input-container">
               <i className="fas fa-lock"></i>
-              <input type="password" placeholder="Password" required />
+              <input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  setError(null);
+                }}
+                required
+              />
             </div>
             <div className="remember-forgot">
               {/* <label>
@@ -63,7 +85,12 @@ const LoginPage = () => {
           <p className="signup">
             Don't have an account? <a href="/">Sign Up</a>
           </p>
+
+          {/* show error */}
+          {error && <p className="error-msg">{error}</p>}
+          {/* {success && <p className="seccess-msg">{success}</p>} */}
         </div>
+
         <div className="login-right">
           <img src={expenseImage} alt="Login Visual" />
         </div>
