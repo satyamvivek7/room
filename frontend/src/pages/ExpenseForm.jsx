@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../styles/Dashboard/ExpenseForm.css";
+import { submitExpense } from "../services/apiService";
 
 const ExpenseForm = () => {
   const [showForm, setShowForm] = useState(false);
@@ -17,10 +18,17 @@ const ExpenseForm = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Form submitted:", formData);
     // Add logic to handle form submission, e.g., sending data to a server.
+    try {
+      const response = await submitExpense(formData);
+      console.log("response", response);
+    } catch (err) {
+      console.error("error", err.message);
+    }
+
     setShowForm(false); // Close the form after submission
   };
 
