@@ -37,8 +37,8 @@
 
 .login-left p {
   font-size: 16px;
-  color: #555;
-  margin-bottom: 20px;
+  /* color: #555; */
+  /* margin-bottom: 20px; */
 }
 
 .apple-login {
@@ -157,6 +157,16 @@
 .signup a {
   color: #007bff;
   text-decoration: none;
+}
+
+.error-msg {
+  color: red;
+  text-align: center;
+}
+
+.success-msg {
+  color: green;
+  text-align: center;
 }
 
 .login-right img {
