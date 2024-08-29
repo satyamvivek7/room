@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/Dashboard/ExpenseForm.css";
 import { submitExpense } from "../services/apiService";
 
@@ -17,6 +17,10 @@ const ExpenseForm = () => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
+  useEffect(() => {
+    handleSubmit();
+  }, [formData]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
