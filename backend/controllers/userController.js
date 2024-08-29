@@ -165,7 +165,8 @@ export const createUser = async (req, res) => {
         console.log('newUser', newUser);
         res.status(201).json({
             message:'user created successfully ',
-            data: newUser
+            data: newUser,
+            success : true
         });
     } catch (err) {
         res.status(400).json({ message: err.message });

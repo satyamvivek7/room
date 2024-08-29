@@ -1,12 +1,14 @@
 import { useState } from "react";
 import "../styles/login/SignupPage.css";
 import { signupUser } from "../services/apiService";
+import { useNavigate } from "react-router-dom";
 
 
 
-const SignupPage = (isOpen, onClose) => {
+const SignupPage = () => {
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState("");
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
             title: "",
@@ -17,6 +19,17 @@ const SignupPage = (isOpen, onClose) => {
             confirmpassword :""
     });
 
+    const handleCancel = () => {
+        setFormData({
+            title: "",
+            name: "",
+            age: "",
+            role: "",
+            password: "",
+            confirmpassword: "",
+        });
+    };
+
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     
@@ -26,17 +39,40 @@ const SignupPage = (isOpen, onClose) => {
         e.preventDefault();
         try {
             console.log('formdata',formData);
+            if (formData.password !== formData.confirmpassword) {
+                setError("Passwords do not match");
+                return;
+            }
             const response = await signupUser({ formData });
             console.log('response',response);
 
-        setError(null);
+
+            if (response.success == true){
+                console.log('ram')
+                setError(null);
+                setSuccess(response.message);
+                setError(null);
+                setTimeout(() => {
+                    navigate("/");
+                }, 1000);
+                return;
+            }else {
+                console.log('shyam')
+                setSuccess(null);
+                setError(response.message);
+                setSuccess(null);
+                return;
+        
+            }
+
         } catch (err) {
-            console.log("error", err.message);
-            setError("An error occurred");
+            console.error("error", err.message);
+            setTimeout(() => {
+            }, 1000);
         }
     };
 
-    if (!isOpen) return null;
+
 
 
     return (
@@ -45,7 +81,7 @@ const SignupPage = (isOpen, onClose) => {
                 <h1>Sign Up</h1>
                 <form onSubmit={handleSignup}>
                     <div className="input-container">
-                        <i className="fas fa-envelope"></i>
+                        <i className="fa-regular fa-user"></i>
                         <input
                             type="text"
                             placeholder="Title"
@@ -56,7 +92,7 @@ const SignupPage = (isOpen, onClose) => {
                         />
                     </div>
                     <div className="input-container">
-                        <i className="fas fa-envelope"></i>
+                        <i className=" fa-solid fa-user"> </i>
                         <input
                             type="text"
                             placeholder="Name"
@@ -67,7 +103,7 @@ const SignupPage = (isOpen, onClose) => {
                         />
                     </div>
                     <div className="input-container">
-                        <i className="fas fa-envelope"></i>
+                        <i className="fa-solid fa-list-ol"></i>
                         <input
                             type="text"
                             placeholder="Age"
@@ -78,7 +114,7 @@ const SignupPage = (isOpen, onClose) => {
                         />
                     </div>
                     <div className="input-container">
-                        <i className="fas fa-envelope"></i>
+                        <i className="fa-solid fa-user-tie"></i>
                         <input
                             type="text"
                             placeholder="Role"
@@ -104,8 +140,8 @@ const SignupPage = (isOpen, onClose) => {
                         <input
                             type="password"
                             placeholder="Confirm Password"
-                            name="password"
-                            value={formData.password}
+                            name="confirmpassword"
+                            value={formData.confirmpassword}
                             onChange={handleChange}
                             required
                         />
@@ -116,7 +152,7 @@ const SignupPage = (isOpen, onClose) => {
                         <button type="submit" className="signup-button">
                             Submit
                         </button>
-                        <button type="button" className="cancel-button" onClick={onClose}>
+                        <button type="button" className="cancel-button" onClick={handleCancel}>
                             Cancel
                         </button>
                     </div>
