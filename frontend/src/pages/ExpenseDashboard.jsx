@@ -54,12 +54,11 @@ export default function ExpenseDashboard() {
             <tr>
               {/* <th>Serial No</th> */}
               <th>Serial No.</th>
-              <th>UserName</th>
-              <th>Gender</th>
-              <th>Mobile No</th>
-              <th>Email ID</th>
-              <th>Authorization</th>
-              <th>Status</th>
+              <th>Amount ₹</th>
+              <th>Category</th>
+              <th>Description</th>
+              <th>Created Date</th>
+              <th>Update Date</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -71,28 +70,20 @@ export default function ExpenseDashboard() {
                   <td>{user.payAmount}</td>
                   <td>{user.category}</td>
                   <td>{user.description}</td>
-                  {/* <td>{user.email_id}</td> */}
-                  {/* <td>{user.role}</td> */}
-                  {/* <td
-                    className={`${
-                      user.status === "ACTIVE"
-                        ? "text-green-500"
-                        : "text-red-500"
-                    }`}
-                  >
-                    {user.status}
-                  </td>
+                  <td>{user.createddt}</td>
+                  <td>{user.updateddt}</td>
+
                   <td className="px-6 py-4">
                     <a
                       onClick={() => {
-                        navigate("/configuration/user/edit");
-                        setParameter(user.id);
+                        // navigate("/configuration/user/edit");
+                        // setParameter(user.id);
                       }}
                       className="font-medium text-blue-600 dark:text-blue-500 cursor-pointer"
                     >
                       Edit
                     </a>
-                  </td> */}
+                  </td>
                 </tr>
               ))}
           </tbody>
