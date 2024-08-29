@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import userRoutes from './routes/userRoute.js';
+import transactionRoute from './routes/transactionRoute.js'
 import dotenv from 'dotenv';
 dotenv.config();
 let PORT = process.env.PORT || 9800;
@@ -27,6 +28,7 @@ connectDB().then(() => {
 
 // Define routes
 app.use('/api/users', userRoutes);
+app.use('/api/transaction',transactionRoute);
 // app.use('/api/transactions', transactionRoutes);
 
 // Use error handling middleware

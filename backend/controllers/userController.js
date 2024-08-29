@@ -1,4 +1,5 @@
 import User from '../models/userModel.js';
+import Transaction from '../models/transactionModel.js';
 import dotenv from 'dotenv';
 dotenv.config();
 import authToken from '../utils/authTokenFunction.js';
@@ -89,6 +90,38 @@ export const getAllUsers = async (req, res) => {
         const users = await User.find();
         console.log('users', users);
         res.status(200).json(users);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
+
+
+export const transactiondataAcToUser = async (req, res) => {
+    try {
+        console.log('1')
+        let _id = '66cf0f63c1486e8cd29c2ac1'
+        const users = await User.findById(_id);
+        console.log('users',users)
+        console.log('req user',req.user)
+        let name = req.user.name;
+
+        const result = await User.aggregate([
+            {
+                $lookup: {
+                    from: 'transaction',             // Name of the related collection
+                    localField: '_id',                // Field from the main collection
+                    foreignField: 'id',               // Field from the transaction collection
+                    as: 'relatedTransactions'         // Name of the field to add the related documents
+                }
+            },
+            {
+                $match: { "name": name }          // Optional: Add filters to match specific documents
+            }]);
+        console.log('result', result[0].relatedTransactions)
+        res.status(200).json({
+            message : 'Transaction History',
+            data: result[0].relatedTransactions
+        });
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
