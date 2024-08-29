@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const transactionSchema = mongoose.Schema(
     {
-        userid: {
+        id: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User', // Reference to the User model
             required: true
