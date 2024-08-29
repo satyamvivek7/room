@@ -10,6 +10,11 @@ const ExpenseForm = () => {
     description: "",
   });
 
+  const [message, setMessage] = useState("");
+  const [emessage, seteMessage] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
+  const [showePopup, seteShowPopup] = useState(false);
+
   const toggleForm = () => {
     setShowForm(!showForm);
   };
@@ -18,9 +23,9 @@ const ExpenseForm = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  useEffect(() => {
-    handleSubmit();
-  }, [formData]);
+  // useEffect(() => {
+  //   handleSubmit();
+  // }, [formData]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,8 +34,32 @@ const ExpenseForm = () => {
     try {
       const response = await submitExpense({ formData });
       console.log("response", response);
+      // Set the message and show the popup
+      if(response.message == 'Expanse Added'){
+        console.log('ram')
+        setMessage(response.message);
+        setShowPopup(true);
+      }else{
+        console.log('shyam')
+        seteMessage(response.message);
+        seteShowPopup(true);
+      }
+      setTimeout(() => {
+        setShowPopup(false);
+        seteShowPopup(false);
+        window.location.reload();
+      }, 1000);
+
     } catch (err) {
       console.error("error", err.message);
+      setMessage(err.message);
+      seteMessage(err.message);
+      setShowPopup(true);
+      seteShowPopup(true);
+      setTimeout(() => {
+        setShowPopup(false);
+        seteShowPopup(false);
+      }, 1000);
     }
 
     setShowForm(false); // Close the form after submission
@@ -97,6 +126,18 @@ const ExpenseForm = () => {
           </div>
         </div>
       )}
+      {/* Popup or Toast Notification */}
+      {showPopup && (
+        <div className="popup">
+          {message}
+        </div>
+      )}
+      {showePopup && (
+        <div className="perror">
+          {emessage}
+        </div>
+      )}
+
     </div>
   );
 };

@@ -94,3 +94,25 @@
   color: #333;
   cursor: pointer;
 }
+
+.popup {
+  position: fixed;
+  top: 70px;
+  right: 80px;
+  background-color: #22eb28;
+  color: white;
+  padding: 10px;
+  border-radius: 8px;
+  z-index: 1000;
+}
+
+.perror {
+  position: fixed;
+  top: 70px;
+  right: 80px;
+  background-color: #d21222;
+  color: white;
+  padding: 10px;
+  border-radius: 8px;
+  z-index: 1000;
+}
