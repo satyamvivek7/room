@@ -6,39 +6,42 @@ import dotenv from 'dotenv';
 dotenv.config();
 let PORT = process.env.PORT || 9800;
 import connectDB from './config/db.js';
-
-//assigning object of express
 const app = express();
 
-//middleware
+
+
+//----------------------------------middleware---------------------------//
 app.use(express.json());
 app.use(
     cors({
-        origin: '*', 
+        origin: '*',
         credentials: true,
         methods: ['GET', 'POST', 'PUT', 'DELETE'],
         allowedHeaders: ['Content-Type', 'Authorization'],
-        exposedHeaders: ['X-Custom-Header', 'X-Another-Header'] // Specify exposed headers
+        exposedHeaders: ['X-Custom-Header', 'X-Another-Header']
     }));
-app.use(express.urlencoded({ extended: true, limit: '2mb' }));    
+app.use(express.urlencoded({ extended: true, limit: '2mb' }));
+//-----------------------------------------------------------------------//
 
-// Connect to MongoDB
-connectDB().then(() => {
-// console.log('MongoDB connected successfully');
 
-// Define routes
+
+
+//-----------------------------define routes-------------------------------//
 app.use('/api/users', userRoutes);
-app.use('/api/transaction',transactionRoute);
-// app.use('/api/transactions', transactionRoutes);
+app.use('/api/transaction', transactionRoute);
+//-------------------------------------------------------------------------//
 
-// Use error handling middleware
-// app.use(errorHandler);
 
-// Start the server
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+
+
+
+//----------------------------database and server connection----------------//
+connectDB().then(() => {
+    // Start the server
+    app.listen(PORT, () => {
+        console.log(`Server is running on port ${PORT}`);
+    });
 }).catch((error) => {
-console.error('Failed to connect to MongoDB:', error);
-process.exit(1); 
+    console.error('Failed to connect to MongoDB:', error);
+    process.exit(1);
 });

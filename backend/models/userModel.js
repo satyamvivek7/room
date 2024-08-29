@@ -28,7 +28,7 @@ const userSchema = mongoose.Schema(
         },
         monthName: {
             type: String,
-            required: true,
+            required: false,
             enum: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
         },
         password: {
@@ -49,7 +49,7 @@ const userSchema = mongoose.Schema(
             required : false
         },
         updatedby: {
-            type: Number,
+            type: String,
             required: false,
         },
     },
