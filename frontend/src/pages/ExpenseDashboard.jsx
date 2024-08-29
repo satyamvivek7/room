@@ -4,16 +4,12 @@ import ExpenseForm from "./ExpenseForm";
 
 export default function ExpenseDashboard() {
   const [username, setUsername] = useState(null);
-  const [userToken, setUserToken] = useState(null);
 
   //get username from sessionStorage.
   useEffect(() => {
     const ActiveUser = sessionStorage.getItem("username");
-    const ActiveToken = sessionStorage.getItem("Session-token");
     console.log("username", ActiveUser);
-    console.log("token", ActiveToken);
     setUsername(ActiveUser);
-    setUserToken(ActiveUser);
   }, []);
 
   return (
@@ -27,7 +23,7 @@ export default function ExpenseDashboard() {
 
       <div className="Expense-table">
         {/* expense component */}
-        <ExpenseForm token={userToken} />
+        <ExpenseForm />
 
         <table>
           <thead>
