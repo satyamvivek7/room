@@ -51,7 +51,6 @@ const SignupPage = () => {
                 console.log('ram')
                 setError(null);
                 setSuccess(response.message);
-                setError(null);
                 setTimeout(() => {
                     navigate("/");
                 }, 1000);
@@ -60,13 +59,13 @@ const SignupPage = () => {
                 console.log('shyam')
                 setSuccess(null);
                 setError(response.message);
-                setSuccess(null);
                 return;
-        
             }
 
         } catch (err) {
             console.error("error", err.message);
+            setSuccess(null);
+            setError(err.message);
             setTimeout(() => {
             }, 1000);
         }
