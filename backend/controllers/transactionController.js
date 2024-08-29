@@ -86,15 +86,42 @@ export const createTransaction = async (req, res) => {
 };
 
 // Update a user
-export const updateUser = async (req, res) => {
+export const updateTransaction = async (req, res) => {
     try {
-        const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        if (!updatedUser) return res.status(404).json({ message: 'User not found' });
-        res.status(200).json(updatedUser);
+        console.log('req body',req.body);
+        let { id, payAmount, category, description } =req.body;
+        let user = await Transaction.findById(id);
+        console.log('user',user);
+        let updatedby = req.user.name;
+        let updateddt = new Date();
+        
+        const filter = {_id :id};
+        const updatedoc ={
+            $set: {
+                payAmount: payAmount,
+                category: category,
+                description: description,
+                updateddt: updateddt,
+                updatedby: updatedby
+                 }
+        }
+
+        const updatedTransaction = await Transaction.findByIdAndUpdate(filter, updatedoc, { new: true });
+
+        if (!updatedTransaction) return res.status(statusCode.NOTFOUND.code).json({ message: 'Not updated' });
+
+        res.status(statusCode.SUCCESS.code).json({
+            message: 'Expanse Data Upadted',
+            data: updatedTransaction
+        });
     } catch (err) {
-        res.status(400).json({ message: err.message });
+        res.status(statusCode.INTERNAL_SERVER_ERROR.code).json({ message: err.message });
     }
 };
+
+
+
+
 
 // Delete a user
 export const deleteUser = async (req, res) => {

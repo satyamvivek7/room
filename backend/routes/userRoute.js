@@ -4,11 +4,13 @@ import { authenticate } from '../middleware/authMiddleware.js'
 
 const router = express.Router();
 
-router.post('/login', login);
-router.get('/',authenticate, getAllUsers);
-router.get('/transactiondataAcToUser', authenticate, transactiondataAcToUser);
-router.post('/',authenticate,createUser);
-router.put('/:id', authenticate, updateUser);
-router.delete('/:id', authenticate, deleteUser);
+
+router.get('/',authenticate, getAllUsers);              //get all user
+router.post('/', authenticate, createUser);             //create user
+router.post('/login', login);                           //login
+router.put('/update/:id', authenticate, updateUser);    //update user
+router.delete('/delete/:id', authenticate, deleteUser); //delete user
+router.get('/transactiondataAcToUser', authenticate, transactiondataAcToUser); //data of transaction w.r.t user
+
 
 export default router;
