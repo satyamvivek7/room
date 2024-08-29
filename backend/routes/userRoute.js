@@ -6,7 +6,7 @@ const router = express.Router();
 
 
 router.get('/',authenticate, getAllUsers);              //get all user
-router.post('/', authenticate, createUser);             //create user
+router.post('/', createUser);                           //create user
 router.post('/login', login);                           //login
 router.post('/logout', logout);                         //logout
 router.put('/update/:id', authenticate, updateUser);    //update user

@@ -128,9 +128,14 @@ export const transactiondataAcToUser = async (req, res) => {
 export const createUser = async (req, res) => {
     console.log('body create',req.body);
 
-    let { title,name,age,role,submitedAmount,monthName,password } = req.body;
+    let {
+        formData:{
+            formData:
+            { title, name, age, role, password }
+        }   
+        } = req.body;
 
-    if (!(title && name && age && role && submitedAmount && monthName && password)){
+    if (!(title && name && age && role && password)){
         return res.status(400).json({message: 'Please send all required data'});
     }
 
@@ -149,8 +154,8 @@ export const createUser = async (req, res) => {
         age: age,
         role: role,
         password: hashedPassword,
-        submitedAmount: submitedAmount,
-        monthName: monthName,
+        // submitedAmount: submitedAmount,
+        // monthName: monthName,
         createddt: createddt ,
         createdby: createdby
     });
