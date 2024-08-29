@@ -17,14 +17,15 @@ export const loginUser = async (username, password) => {
   }
 };
 
-export const submitExpense = async (formData) => {
+export const submitExpense = async ({ formData, token }) => {
   try {
-    const response = await fetch("http://localhost:5555/api/users/login", {
+    const response = await fetch("http://localhost:5555/api/transaction", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: "Bearer " + sessionStorage?.getItem("Session-token"),
       },
-      body: JSON.stringify({ formData }),
+      body: JSON.stringify({ formData, token }),
     });
 
     const data = await response.json();

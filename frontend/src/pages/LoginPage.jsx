@@ -25,6 +25,7 @@ const LoginPage = () => {
       if (response.message == "Logged in") {
         console.log("response.message", response.message);
         sessionStorage.setItem("username", response.username);
+        sessionStorage.setItem("Session-token", response.Token);
         navigate("/dashboard");
         setSuccess(response.message);
       } else {
