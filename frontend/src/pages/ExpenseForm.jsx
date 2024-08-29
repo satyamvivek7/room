@@ -23,7 +23,7 @@ const ExpenseForm = () => {
     console.log("Form submitted:", formData);
     // Add logic to handle form submission, e.g., sending data to a server.
     try {
-      const response = await submitExpense(formData);
+      const response = await submitExpense({ formData });
       console.log("response", response);
     } catch (err) {
       console.error("error", err.message);
@@ -70,6 +70,14 @@ const ExpenseForm = () => {
                 onChange={handleChange}
               >
                 <option value="">Select category</option>
+                <option value="Food">Food</option>
+                <option value="Transport">Transport</option>
+                <option value="Groceries">Groceries</option>
+                <option value="Utilities">Utilities</option>
+                <option value="Entertainment">Entertainment</option>
+                <option value="Health">Health</option>
+                <option value="Shopping">Shopping</option>
+                <option value="Others">Others</option>{" "}
               </select>
               <label>Description:</label>
               <textarea
