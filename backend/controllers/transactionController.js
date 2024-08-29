@@ -54,7 +54,11 @@ export const createTransaction = async (req, res) => {
     let id = user._id;
     console.log('id',id)
     try {
-    let {payAmount, category, description } = req.body;
+    let {
+        formdata :{
+            payAmount, category, description 
+    }
+     } = req.body;
     
     if (!( payAmount && category && description )) {
         return res.status(statusCode.BAD_REQUEST.code).json({ message: 'Please send all required data' });
@@ -89,7 +93,8 @@ export const createTransaction = async (req, res) => {
 export const updateTransaction = async (req, res) => {
     try {
         console.log('req body',req.body);
-        let { id, payAmount, category, description } =req.body;
+        let { 
+            id, payAmount, category, description } =req.body;
         let user = await Transaction.findById(id);
         console.log('user',user);
         let updatedby = req.user.name;
