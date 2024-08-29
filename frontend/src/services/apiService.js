@@ -17,6 +17,26 @@ export const loginUser = async (username, password) => {
   }
 };
 
+export const signupUser = async (formData) => {
+  try {
+    const response = await fetch("http://localhost:5555/api/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ formData }),
+    });
+
+    const data = await response.json();
+    console.log("data", data);
+    return data;
+  } catch (error) {
+    console.error("Error during login:", error);
+    return { success: false, message: error.message };
+  }
+};
+
+
 export const submitExpense = async ({ formData, token }) => {
   try {
     const response = await fetch("http://localhost:5555/api/transaction", {
