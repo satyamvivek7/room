@@ -99,9 +99,6 @@ export const getAllUsers = async (req, res) => {
 export const transactiondataAcToUser = async (req, res) => {
     try {
         console.log('1')
-        let _id = '66cf0f63c1486e8cd29c2ac1'
-        const users = await User.findById(_id);
-        console.log('users',users)
         console.log('req user',req.user)
         let name = req.user.name;
 
@@ -191,3 +188,16 @@ export const deleteUser = async (req, res) => {
         res.status(400).json({ message: err.message });
     }
 };
+
+
+export const logout = async (req, res) => {
+    const options = {
+        expires: new Date(Date.now() - 1), // Expire the cookie immediately
+        httpOnly: true,
+        sameSite: 'none',
+        secure: true
+    };
+    // Clear both access token and refresh token cookies
+    res.clearCookie('token', options);
+    res.status(statusCode.SUCCESS.code).json({ message: 'Logged out successfully' });
+}
