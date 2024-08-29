@@ -1,15 +1,39 @@
 import React, { useEffect, useState } from "react";
 import "../styles/Dashboard/Dashboard.css";
 import ExpenseForm from "./ExpenseForm";
+import { fetchExpense } from "../services/apiService";
 
 export default function ExpenseDashboard() {
   const [username, setUsername] = useState(null);
+  const [expenseList, setExpenseList] = useState(null);
 
   //get username from sessionStorage.
   useEffect(() => {
     const ActiveUser = sessionStorage.getItem("username");
     console.log("username", ActiveUser);
     setUsername(ActiveUser);
+  }, []);
+
+  // useEffect(() => {
+  //   const data = await fetchExpense();
+  //   setExpenseList(data);
+  //   // console.log("fetch", expenseList);
+  // }, []);
+
+  useEffect(() => {
+    const GetExpense = async () => {
+      try {
+        const response = await fetchExpense();
+        console.log("Get expense list", response);
+        setExpenseList(response.data);
+        console.log("expense", expenseList);
+      } catch (err) {
+        console.error("error", err.message);
+        // setError("An error occurred");
+      }
+    };
+
+    GetExpense();
   }, []);
 
   return (
@@ -39,17 +63,17 @@ export default function ExpenseDashboard() {
               <th>Action</th>
             </tr>
           </thead>
-          {/* <tbody>
-            {tableData?.length > 0 &&
-              tableData?.map((user, index) => (
-                <tr key={index}>
-                  <td>{(page - 1) * count + index + 1}</td>
-                  <td>{user.user_name}</td>
-                  <td>{user.gender}</td>
-                  <td>{user.contact_no}</td>
-                  <td>{user.email_id}</td>
-                  <td>{user.role}</td>
-                  <td
+          <tbody>
+            {expenseList?.length > 0 &&
+              expenseList?.map((user, index) => (
+                <tr key={user._id}>
+                  <td>{index + 1}</td>
+                  <td>{user.payAmount}</td>
+                  <td>{user.category}</td>
+                  <td>{user.description}</td>
+                  {/* <td>{user.email_id}</td> */}
+                  {/* <td>{user.role}</td> */}
+                  {/* <td
                     className={`${
                       user.status === "ACTIVE"
                         ? "text-green-500"
@@ -68,10 +92,10 @@ export default function ExpenseDashboard() {
                     >
                       Edit
                     </a>
-                  </td>
+                  </td> */}
                 </tr>
               ))}
-          </tbody> */}
+          </tbody>
         </table>
       </div>
     </>
