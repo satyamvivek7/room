@@ -2,10 +2,6 @@ import mongoose from 'mongoose';
 
 const userSchema = mongoose.Schema(
     {
-        title: {
-            type: String,
-            required: true,
-        },
         name: {
             type: String,
             required: true,
@@ -15,21 +11,6 @@ const userSchema = mongoose.Schema(
             required: false,
             default: 0,
             min: [0, 'Age must be a non-negative number']
-        },
-        role: {
-            type: String,
-            required: true,
-        },
-        submitedAmount: {
-            type: Number,
-            required: false,
-            default: 0,
-            min: [0, 'Amount must be a non-negative number']
-        },
-        monthName: {
-            type: String,
-            required: false,
-            enum: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
         },
         password: {
             type: String,

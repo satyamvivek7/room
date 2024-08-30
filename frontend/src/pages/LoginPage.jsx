@@ -41,7 +41,7 @@ const LoginPage = () => {
     <div className="login-container">
       <div className="login-box">
         <div className="login-left">
-          <h1>Expense Traker</h1>
+          <h1>Expense Tracker</h1>
           {/* <p>Please enter your details.</p> */}
           {/* <button className="apple-login">Log in with Apple</button> */}
           {/* <div className="divider">

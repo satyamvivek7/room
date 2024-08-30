@@ -72,7 +72,7 @@ const ExpenseForm = ({ onAddExpense }) => {
             </span>
             <h2>Expense Form</h2>
             <form onSubmit={handleSubmit}>
-              <label>Pay Amount (INRS):</label>
+              <label>Pay Amount (INR):</label>
               <input
                 type="number"
                 name="payAmount"
@@ -87,6 +87,7 @@ const ExpenseForm = ({ onAddExpense }) => {
                 aria-placeholder="Category List"
                 value={formData.category}
                 onChange={handleChange}
+                required
               >
                 <option value="">Select category</option>
                 <option value="Food">Food</option>
@@ -98,12 +99,11 @@ const ExpenseForm = ({ onAddExpense }) => {
                 <option value="Shopping">Shopping</option>
                 <option value="Others">Others</option>{" "}
               </select>
-              <label>Description:</label>
+              <label>Description(Optional):</label>
               <textarea
                 name="description"
                 value={formData.description}
                 onChange={handleChange}
-                required
               ></textarea>
               <button type="submit" className="submit-button">
                 Submit
