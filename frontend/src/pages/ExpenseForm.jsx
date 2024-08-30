@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../styles/Dashboard/ExpenseForm.css";
 import { submitExpense } from "../services/apiService";
 
-const ExpenseForm = () => {
+const ExpenseForm = ({ onAddExpense }) => {
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({
     payAmount: "",
@@ -23,43 +23,36 @@ const ExpenseForm = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // useEffect(() => {
-  //   handleSubmit();
-  // }, [formData]);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
-    // Add logic to handle form submission, e.g., sending data to a server.
+    // console.log("Form submitted:", formData);
     try {
-      const response = await submitExpense({ formData });
-      console.log("response", response);
+      const addExpense = await submitExpense({ formData });
+      console.log("add Expense response", addExpense);
+      onAddExpense(addExpense.data);
       // Set the message and show the popup
-      if(response.message == 'Expanse Added'){
-        console.log('ram')
-        setMessage(response.message);
-        setShowPopup(true);
-      }else{
-        console.log('shyam')
-        seteMessage(response.message);
-        seteShowPopup(true);
-      }
-      setTimeout(() => {
-        setShowPopup(false);
-        seteShowPopup(false);
-        window.location.reload();
-      }, 1000);
-
+      // if (addExpense.message == "Expanse Added") {
+      //   setMessage(addExpense.message);
+      //   setShowPopup(true);
+      // } else {
+      //   seteMessage(addExpense.message);
+      //   seteShowPopup(true);
+      // }
+      // setTimeout(() => {
+      //   setShowPopup(false);
+      //   seteShowPopup(false);
+      //   window.location.reload();
+      // }, 2000);
     } catch (err) {
       console.error("error", err.message);
-      setMessage(err.message);
-      seteMessage(err.message);
-      setShowPopup(true);
-      seteShowPopup(true);
-      setTimeout(() => {
-        setShowPopup(false);
-        seteShowPopup(false);
-      }, 1000);
+      // setMessage(err.message);
+      // seteMessage(err.message);
+      // setShowPopup(true);
+      // seteShowPopup(true);
+      // setTimeout(() => {
+      //   setShowPopup(false);
+      //   seteShowPopup(false);
+      // }, 1000);
     }
 
     setShowForm(false); // Close the form after submission
@@ -89,13 +82,6 @@ const ExpenseForm = () => {
                 required
               />
               <label>Category:</label>
-              {/* <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-              /> */}
               <select
                 name="category"
                 aria-placeholder="Category List"
@@ -127,17 +113,8 @@ const ExpenseForm = () => {
         </div>
       )}
       {/* Popup or Toast Notification */}
-      {showPopup && (
-        <div className="popup">
-          {message}
-        </div>
-      )}
-      {showePopup && (
-        <div className="perror">
-          {emessage}
-        </div>
-      )}
-
+      {showPopup && <div className="popup">{message}</div>}
+      {showePopup && <div className="perror">{emessage}</div>}
     </div>
   );
 };
