@@ -124,6 +124,61 @@ export const transactiondataAcToUser = async (req, res) => {
     }
 };
 
+export const filter = async (req, res) => {
+    try {
+        console.log('1')
+        console.log('req user', req.user)
+        let name = req.user.name;
+        let category = req.body.category;
+        console.log('category', category)
+
+        const result = await User.aggregate([
+            {
+                $lookup: {
+                    from: 'transaction',             // Name of the related collection
+                    localField: '_id',                // Field from the main collection
+                    foreignField: 'id',               // Field from the transaction collection
+                    as: 'relatedTransactions'         // Name of the field to add the related documents
+                }
+            },
+            // {
+            //     $match: {
+            //         $and: [
+            //             { name: name },               // First condition
+            //             { age: { $gte: 18 } },        // Second condition
+            //             { status: "active" }          // Third condition
+                       
+            //         ]
+            //     }
+            // }
+            {
+                $match: {
+                    name: name,                       // Filter by name in the User collection
+                    'relatedTransactions.category': category // Filter by category in the related transactions
+                }
+            },
+            {
+                $unwind: "$relatedTransactions"       // Optional: Unwind relatedTransactions array to filter by individual transactions
+            },
+            {
+                $match: {
+                    'relatedTransactions.category': category // Further filter by category after unwind
+                }
+            }
+        ]);
+        let main = [];
+        let push = main.push()
+        console.log('result', result[0].relatedTransactions)
+        res.status(200).json({
+            message: 'Transaction History',
+            data1: result[0].relatedTransactions,
+            data:result
+        });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
+
 // Create a new user
 export const createUser = async (req, res) => {
     console.log('body create',req.body);

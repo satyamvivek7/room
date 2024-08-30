@@ -104,6 +104,23 @@
   color: #333;
   cursor: pointer;
 }
+/* .displayHeading{
+  display: flex;
+} */
+
+.Logout-button {
+   position:relative;
+   top: 10px;
+   right: 10px;
+   font-size: 15px;
+   color: #f8f8f8;
+   background-color: #ea182a;
+    cursor: pointer;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+ }
 
 .popup {
   position: fixed;

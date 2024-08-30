@@ -32,9 +32,6 @@ const SignupPage = () => {
         setSuccess(null);
     };
 
-    const handleLogin = () => {
-        navigate("/");
-    };
 
     const handleChange = (e) => {
         setError(null);
