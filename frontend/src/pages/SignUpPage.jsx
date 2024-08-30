@@ -37,8 +37,9 @@ const SignupPage = () => {
     };
 
     const handleChange = (e) => {
+        setError(null);
+        setSuccess(null);
         setFormData({ ...formData, [e.target.name]: e.target.value });
-    
     };
 
     const handleSignup = async (e) => {
