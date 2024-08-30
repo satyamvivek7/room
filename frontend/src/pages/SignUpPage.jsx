@@ -11,20 +11,16 @@ const SignupPage = () => {
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
-            title: "",
             name: "",
             age: "",
-            role: "",
             password: "",
             confirmpassword :""
     });
 
     const handleCancel = () => {
         setFormData({
-            title: "",
             name: "",
             age: "",
-            role: "",
             password: "",
             confirmpassword: "",
         });
@@ -84,17 +80,6 @@ const SignupPage = () => {
                 <h1>Sign Up</h1>
                 <form onSubmit={handleSignup}>
                     <div className="input-container">
-                        <i className="fa-regular fa-user"></i>
-                        <input
-                            type="text"
-                            placeholder="Title"
-                            name="title"
-                            value={formData.title}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    <div className="input-container">
                         <i className=" fa-solid fa-user"> </i>
                         <input
                             type="text"
@@ -112,17 +97,6 @@ const SignupPage = () => {
                             placeholder="Age"
                             name="age"
                             value={formData.age}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    <div className="input-container">
-                        <i className="fa-solid fa-user-tie"></i>
-                        <input
-                            type="text"
-                            placeholder="Role"
-                            name="role"
-                            value={formData.role}
                             onChange={handleChange}
                             required
                         />

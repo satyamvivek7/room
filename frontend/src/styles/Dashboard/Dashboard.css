@@ -4,7 +4,7 @@
   padding: 0 12px;
   align-items: center;
   border-bottom: 2px solid orange;
-  color: #007bff;
+  color: #214063;
   margin-bottom: 12px;
 }
 
@@ -58,4 +58,10 @@
 
 .Expense-table tbody tr:nth-child(even) {
   background-color: #f9f9f9;
+}
+
+.edit-button{
+  border : none;
+  background-color: rgb(255, 255, 255);
+  font-size: 20px;
 }

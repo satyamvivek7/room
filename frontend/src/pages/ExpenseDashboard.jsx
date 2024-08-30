@@ -84,8 +84,8 @@ export default function ExpenseDashboard() {
   return (
     <>
       <div className="displayHeading">
-        <h2>Expense Traker</h2>
-        <h1 className="user-name">Hi🖐 {username}</h1>
+        <h2>Expense Tracker</h2>
+        <h1 className="user-name">Hi {username}</h1>
         <button className="Logout-button" onClick={handleLogout}>
           Logout
         </button>
@@ -127,7 +127,7 @@ export default function ExpenseDashboard() {
                       onClick={() => handleEditClick(user._id)}
                       className="edit-button"
                     >
-                      Edit
+                      <i className="fa-regular fa-pen-to-square"></i>  
                     </button>
                   </td>
                 </tr>

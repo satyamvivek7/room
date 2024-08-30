@@ -77,7 +77,6 @@ const EditExpense = ({ expenseId, onUpdate, onCancel }) => {
             name="description"
             value={formData.description}
             onChange={handleChange}
-            required
           ></textarea>
           <button type="submit" className="submit-button">
             Update

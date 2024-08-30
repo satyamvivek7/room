@@ -186,11 +186,11 @@ export const createUser = async (req, res) => {
     let {
         formData:{
             formData:
-            { title, name, age, role, password }
+            {  name, age, password }
         }   
         } = req.body;
 
-    if (!(title && name && age && role && password)){
+    if (!( name && age && password)){
         return res.status(400).json({message: 'Please send all required data'});
     }
 
@@ -204,13 +204,9 @@ export const createUser = async (req, res) => {
     }
     const hashedPassword = await bcrypt.hash(password, salt);
     const user = new User({
-        title: title ,
         name: name,
         age: age,
-        role: role,
         password: hashedPassword,
-        // submitedAmount: submitedAmount,
-        // monthName: monthName,
         createddt: createddt ,
         createdby: createdby
     });
