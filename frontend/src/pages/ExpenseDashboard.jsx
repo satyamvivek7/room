@@ -3,11 +3,13 @@ import "../styles/Dashboard/Dashboard.css";
 import ExpenseForm from "./ExpenseForm";
 import { fetchExpense } from "../services/apiService";
 import EditExpense from "./EditExpense";
+import { useNavigate } from "react-router-dom";
 
 export default function ExpenseDashboard() {
   const [username, setUsername] = useState(null);
   const [expenseList, setExpenseList] = useState(null);
   const [selectedExpenseId, setSelectedExpenseId] = useState(null);
+  const navigate = useNavigate();
 
   //get username from sessionStorage.
   useEffect(() => {
@@ -15,6 +17,18 @@ export default function ExpenseDashboard() {
     console.log("username", ActiveUser);
     setUsername(ActiveUser);
   }, []);
+
+  const handleLogout = () => {
+    sessionStorage.removeItem("username");
+    sessionStorage.removeItem("Session-token");
+    navigate("/", { replace: true });
+  };
+
+  // useEffect(() => {
+  //   const data = await fetchExpense();
+  //   setExpenseList(data);
+  //   // console.log("fetch", expenseList);
+  // }, []);
 
   useEffect(() => {
     const GetExpense = async () => {
@@ -54,6 +68,7 @@ export default function ExpenseDashboard() {
       <div className="displayHeading">
         <h2>Expense Traker</h2>
         <h1 className="user-name">Hi🖐 {username}</h1>
+        <button className="Logout-button" onClick={handleLogout}>Logout</button>
       </div>
 
       {/* button to create expense */}
