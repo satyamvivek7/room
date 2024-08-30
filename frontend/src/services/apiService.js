@@ -17,6 +17,7 @@ export const loginUser = async (username, password) => {
   }
 };
 
+//SignUp user submit form
 export const signupUser = async (formData) => {
   try {
     const response = await fetch("http://localhost:5555/api/users", {
@@ -36,7 +37,7 @@ export const signupUser = async (formData) => {
   }
 };
 
-
+//Submit expense via ExpenseForm
 export const submitExpense = async ({ formData, token }) => {
   try {
     const response = await fetch("http://localhost:5555/api/transaction", {
@@ -57,6 +58,7 @@ export const submitExpense = async ({ formData, token }) => {
   }
 };
 
+//Fetch expense for Dashboard table
 export const fetchExpense = async () => {
   try {
     const response = await fetch(
@@ -72,10 +74,58 @@ export const fetchExpense = async () => {
     );
 
     const data = await response.json();
-    console.log("data", data);
+    // console.log("data", data);
     return data;
   } catch (error) {
     console.error("Error during fetching expense:", error);
+    return { success: false, message: "Network error" };
+  }
+};
+
+//fetch expence data by Id.
+export const fetchExpenseById = async (id) => {
+  try {
+    const response = await fetch(
+      `http://localhost:5555/api/transaction/${id}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + sessionStorage?.getItem("Session-token"),
+        },
+        // body: JSON.stringify({ username, password }),
+      }
+    );
+
+    const data = await response.json();
+    console.log("data", data);
+    return data;
+  } catch (error) {
+    console.error("Error during fetching expense by-ID:", error);
+    return { success: false, message: "Network error" };
+  }
+};
+
+// update expense
+export const updateExpense = async (id, updateData) => {
+  try {
+    const response = await fetch(
+      "http://localhost:5555/api/transaction/update",
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + sessionStorage?.getItem("Session-token"),
+        },
+        body: JSON.stringify({ id, updateData }),
+      }
+    );
+
+    const data = await response.json();
+    console.log("data", data);
+    return data;
+  } catch (error) {
+    console.error("Error during Update expense:", error);
     return { success: false, message: "Network error" };
   }
 };

@@ -15,6 +15,16 @@
   background-color: #cd9a1c;
 }
 
+/* edit expense btn */
+.editExpenseBtn {
+  /* padding: 10px 20px; */
+  color: blue;
+  border: none;
+  /* border-radius: 4px; */
+  cursor: pointer;
+  font-size: 16px;
+}
+
 /* The pop-up form container */
 .popup-form-container {
   position: fixed;

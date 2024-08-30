@@ -45,7 +45,7 @@ export const getAllTransaction = async (req, res) => {
 export const getAllTransactionById = async (req, res) => {
   try {
     let id = req.params.id;
-    console.log('id',id,'req',req.params);
+    console.log("id", id, "req", req.params);
     const transaction = await Transaction.findById(id);
     console.log("transaction", transaction);
     res.status(statusCode.SUCCESS.code).json({
@@ -109,7 +109,10 @@ export const createTransaction = async (req, res) => {
 export const updateTransaction = async (req, res) => {
   try {
     console.log("req body", req.body);
-    let { id, payAmount, category, description } = req.body;
+    let {
+      id,
+      updateData: { payAmount, category, description },
+    } = req.body;
     let user = await Transaction.findById(id);
     console.log("user", user);
     let updatedby = req.user.name;
@@ -131,6 +134,8 @@ export const updateTransaction = async (req, res) => {
       updatedoc,
       { new: true }
     );
+
+    console.log("updatedTransaction", updatedTransaction);
 
     if (!updatedTransaction)
       return res
