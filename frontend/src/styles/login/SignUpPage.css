@@ -92,6 +92,19 @@
     cursor: pointer;
 }
 
+
+.login {
+    font-size: 16px;
+    text-align: center;
+    color: #000;
+}
+
+.login a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+
 .signup-button:hover {
     background-color: #dd9a1e;
 }

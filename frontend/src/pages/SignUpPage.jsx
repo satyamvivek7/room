@@ -28,6 +28,12 @@ const SignupPage = () => {
             password: "",
             confirmpassword: "",
         });
+        setError(null);
+        setSuccess(null);
+    };
+
+    const handleLogin = () => {
+        navigate("/");
     };
 
     const handleChange = (e) => {
@@ -152,9 +158,14 @@ const SignupPage = () => {
                             Submit
                         </button>
                         <button type="button" className="cancel-button" onClick={handleCancel}>
-                            Cancel
+                            Reset
                         </button>
                     </div>
+                    <p className="login">
+                       Back To Login? <a href="/" >
+                            Login
+                        </a>
+                    </p> 
                 </form>
             </div>
         </div>
