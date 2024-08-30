@@ -31,8 +31,7 @@ const transactionSchema = mongoose.Schema(
         },
         updateddt: {
             type: Date,
-            required: false,
-            default: Date.now
+            required: false
         },
         updatedby: {
             type: String,
