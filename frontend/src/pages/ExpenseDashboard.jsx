@@ -30,6 +30,24 @@ export default function ExpenseDashboard() {
   //   // console.log("fetch", expenseList);
   // }, []);
 
+  ///fomate of date and Time
+  function formatDateTime(inputDate) {
+    if (inputDate == null || inputDate == "") {
+      return inputDate;
+    } else {
+      const date = new Date(inputDate);
+      const day = date.getDate().toString().padStart(2, "0");
+      const month = (date.getMonth() + 1).toString().padStart(2, "0");
+      const year = date.getFullYear();
+      const hours = date.getHours().toString().padStart(2, "0");
+      const minutes = date.getMinutes().toString().padStart(2, "0");
+      const seconds = date.getSeconds().toString().padStart(2, "0");
+      const milliseconds = date.getMilliseconds().toString().padStart(3, "0");
+      const ampm = date.getHours() >= 12 ? "PM" : "AM";
+      return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+    }
+  }
+
   useEffect(() => {
     const GetExpense = async () => {
       try {
@@ -68,7 +86,9 @@ export default function ExpenseDashboard() {
       <div className="displayHeading">
         <h2>Expense Traker</h2>
         <h1 className="user-name">Hi🖐 {username}</h1>
-        <button className="Logout-button" onClick={handleLogout}>Logout</button>
+        <button className="Logout-button" onClick={handleLogout}>
+          Logout
+        </button>
       </div>
 
       {/* button to create expense */}
@@ -98,8 +118,8 @@ export default function ExpenseDashboard() {
                   <td>{user.payAmount}</td>
                   <td>{user.category}</td>
                   <td>{user.description}</td>
-                  <td>{user.createddt}</td>
-                  <td>{user.updateddt}</td>
+                  <td>{formatDateTime(user.createddt)}</td>
+                  <td>{formatDateTime(user.updateddt)}</td>
 
                   <td>
                     {/* <EditExpense /> */}
