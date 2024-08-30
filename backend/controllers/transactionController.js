@@ -42,6 +42,23 @@ export const getAllTransaction = async (req, res) => {
   }
 };
 
+export const getAllTransactionById = async (req, res) => {
+  try {
+    let id = req.params.id;
+    console.log('id',id,'req',req.params);
+    const transaction = await Transaction.findById(id);
+    console.log("transaction", transaction);
+    res.status(statusCode.SUCCESS.code).json({
+      message: "TransactionById data",
+      data: transaction,
+    });
+  } catch (err) {
+    res
+      .status(statusCode.INTERNAL_SERVER_ERROR.code)
+      .json({ message: err.message });
+  }
+};
+
 // Create a new user
 export const createTransaction = async (req, res) => {
   console.log("createTransaction", req.body);
